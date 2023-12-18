@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from "react-redux";
+import { setDBConfig } from '@/redux/dbConfigSlice';
 
 const FormDb = () => {
   const [formData, setFormData] = useState({
@@ -7,6 +11,9 @@ const FormDb = () => {
     password: '',
     database: ''
   });
+
+  const dispatch = useDispatch();
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,17 +36,19 @@ const FormDb = () => {
       });
 
       if (response.ok) {
-        console.log('Successfully connected to the database');
+        toast.success('Successfully connected to the database');
+        dispatch(setDBConfig(formData));
       } else {
-        console.error('Failed to connect to the database');
+        toast.error('Failed to connect to the database');
       }
     } catch (error) {
-      console.error('Error connecting to the database:', error);
+      toast.error('Error connecting to the database: ' + error.message);
     }
   };
 
   return (
     <div>
+       <ToastContainer />
       <div className='absolute -mt-3 bg-white left-[39%]'>
         MySQL Data
       </div>

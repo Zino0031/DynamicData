@@ -1,11 +1,13 @@
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
 import FormDb from '@/components/FormDb'
+import Query from '@/components/Query'
 
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
-   <div><FormDb /> </div>
+   <div>
+    <FormDb />
+    <Query />
+     </div>
   )
 }
